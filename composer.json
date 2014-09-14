@@ -8,13 +8,15 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "php": ">=5.5.0",
+        "illuminate/support": "dev-master",
+        "laracasts/commander": "~1.0",
+        "rdehnhardt/assets": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "Rdehnhardt\\Assets": "src/"
+        "psr-4": {
+            "Assets\\": "app/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

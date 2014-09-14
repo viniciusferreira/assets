@@ -1,10 +1,8 @@
 <?php
 
-/*
 Route::group(
-    Config::get('assets::app.route'),
+    ['prefix' => 'assets', 'namespace' => 'Assets\Http'],
     function () {
         Route::get('{path}', 'AssetsController@file')->where('path', '.*');
     }
 );
-*/
