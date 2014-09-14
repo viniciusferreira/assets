@@ -28,6 +28,8 @@ class AssetsServiceProvider extends ServiceProvider
                 $loader->alias('Assets', 'Rdehnhardt\Assets\Facades\Assets');
             }
         );
+
+        require __DIR__ . '/Http/routes.php';
     }
 
     /**
