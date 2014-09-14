@@ -5,6 +5,8 @@ use Laracasts\Commander\CommanderTrait;
 use Assets\Commander\File\FileCommand;
 use Symfony\Component\Finder\SplFileInfo;
 use Config;
+use Guzzle\Http\Mimetypes;
+use Response;
 
 class AssetsController extends Controller
 {
@@ -13,11 +15,16 @@ class AssetsController extends Controller
     public function file($filename)
     {
         $File = $this->execute(FileCommand::class, ['filename' => $filename]);
-
         if (Config::get('app.debug')) {
-            return $File->getContent();
+            $content = $File->getContent();
         } else {
-            return $File->getCached();
+            $content = $File->getCached();
         }
+
+        $mimeType = Mimetypes::getInstance()->fromFilename($filename);
+        $Response = Response::make($content, 200);
+        $Response->header('Content-Type', $mimeType);
+
+        return $Response;
     }
 }

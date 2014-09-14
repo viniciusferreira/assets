@@ -1,28 +1,27 @@
 <?php namespace Assets\Commander\File;
 
-use Illuminate\Support\Facades\Config;
-use Laracasts\Commander\CommandHandler;
 use Assets\Commander\Minify\MinifyCommand;
+use Cache;
+use Event;
+use Illuminate\Support\Facades\Config;
 use Laracasts\Commander\CommanderTrait;
+use Laracasts\Commander\CommandHandler;
 
 class FileCommandHandler implements CommandHandler
 {
     use CommanderTrait;
 
     protected $filesystem;
-    protected $filename;
-    protected $hash;
+    public $filename;
 
     public function handle($command)
     {
         $this->filesystem = $command->filesystem;
         $this->filename = $command->filename;
 
-        return $this;
-    }
+        Event::fire('check.file.cache', array($this));
 
-    public function getFile() {
-        return $this->filesystem->get($this->filename);
+        return $this;
     }
 
     public function getCached()
@@ -32,11 +31,21 @@ class FileCommandHandler implements CommandHandler
 
     public function getContent()
     {
-        if (!Config::get('app.debug')) {
+        if (Config::get('app.debug')) {
             return $this->getFileContent();
         } else {
             return $this->getFileContentMinified();
         }
+    }
+
+    public function getFile()
+    {
+        return $this->filesystem->get($this->filename);
+    }
+
+    public function getSize()
+    {
+        return $this->getFile()->getSize();
     }
 
     private function getFileContent()
