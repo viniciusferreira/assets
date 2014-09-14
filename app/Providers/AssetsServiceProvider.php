@@ -24,5 +24,6 @@ class AssetsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register('Laracasts\Commander\CommanderServiceProvider');
     }
 }

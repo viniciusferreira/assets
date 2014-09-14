@@ -11,7 +11,8 @@
         "php": ">=5.5.0",
         "illuminate/support": "dev-master",
         "laracasts/commander": "~1.0",
-        "rdehnhardt/assets": "dev-master"
+        "natxet/CssMin": "3.0.2",
+        "linkorb/jsmin-php": "1.0.0"
     },
     "autoload": {
         "psr-4": {
