@@ -39,7 +39,16 @@ class AssetsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+    }
+
+    /**
+     * Register the commander service provider.
+     *
+     * @return void
+     */
+    public function registerCommander()
+    {
+        $providers = Config::get('assets::app');
     }
 
     public function registerAssets()
