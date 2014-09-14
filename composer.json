@@ -1,0 +1,20 @@
+{
+    "name": "rdehnhardt/assets",
+    "description": "",
+    "authors": [
+        {
+            "name": "Renato Dehnhardt",
+            "email": "renatotkd@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Rdehnhardt\\Assets": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
