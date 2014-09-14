@@ -18,6 +18,6 @@ class MinifyCommandHandler implements CommandHandler
                 break;
         }
 
-        return $content;
+        return trim($content);
     }
 } 
