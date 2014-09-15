@@ -1,4 +1,4 @@
-<?php namespace Assets\Http;
+<?php namespace Assets\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Laracasts\Commander\CommanderTrait;
