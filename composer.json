@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Assets\\": "app/"
+            "Assets\\": "src/app/"
         }
     },
     "minimum-stability": "dev"
