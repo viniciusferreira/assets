@@ -1,6 +1,7 @@
 {
     "name": "rdehnhardt/assets",
     "description": "",
+    "license" : "MIT",
     "authors": [
         {
             "name": "Renato Dehnhardt",
