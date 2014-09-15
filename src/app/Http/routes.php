@@ -1,7 +1,7 @@
 <?php
 
 Route::group(
-    ['prefix' => 'assets', 'namespace' => 'Assets\Http\Controllers'],
+    ['prefix' => 'assets', 'namespace' => 'Rdehnhardt\Assets\Http\Controllers'],
     function () {
         Route::get('{path}', 'AssetsController@file')->where('path', '.*');
     }
