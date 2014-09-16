@@ -1,4 +1,4 @@
-<?php namespace Assets\Commander\Minify;
+<?php namespace Rdehnhardt\Assets\Commander\Minify;
 
 class MinifyCommand
 {

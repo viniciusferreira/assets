@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
+
 return [
-    'name' => 'Assets'
+    'route' => 'assets',
+    'debug' => Config::get('app.debug'),
+    'folder' => base_path("resources/assets"),
 ];

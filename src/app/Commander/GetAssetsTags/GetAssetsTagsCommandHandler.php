@@ -4,6 +4,7 @@ use Laracasts\Commander\CommandHandler;
 use Laracasts\Commander\CommanderTrait;
 use Rdehnhardt\Assets\Commander\Filesystem\FilesystemCommand;
 use Illuminate\Html\HtmlBuilder;
+use Config;
 
 class GetAssetsTagsCommandHandler implements CommandHandler
 {
@@ -58,7 +59,7 @@ class GetAssetsTagsCommandHandler implements CommandHandler
         $output = null;
 
         foreach ($iterator as $file) {
-            $filename = str_replace($file->getExtension().'/', 'assets/', $file->getRelativePathname());
+            $filename = str_replace($file->getExtension().'/', Config::get('assets::app.name').'/', $file->getRelativePathname());
 
             switch ($file->getExtension()) {
                 case 'css':
@@ -70,7 +71,7 @@ class GetAssetsTagsCommandHandler implements CommandHandler
                     break;
             }
         }
-        return $output;
+        return strtolower($output);
     }
 
 

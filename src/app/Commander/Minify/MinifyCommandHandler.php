@@ -1,7 +1,7 @@
-<?php namespace Assets\Commander\Minify;
+<?php namespace Rdehnhardt\Assets\Commander\Minify;
 
-use JSMin;
 use CssMinifier;
+use JSMin;
 use Laracasts\Commander\CommandHandler;
 
 class MinifyCommandHandler implements CommandHandler

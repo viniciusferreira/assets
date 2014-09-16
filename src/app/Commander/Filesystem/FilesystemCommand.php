@@ -1,5 +1,6 @@
 <?php namespace Rdehnhardt\Assets\Commander\Filesystem;
 
+use Config;
 use Symfony\Component\Finder\Finder;
 
 class FilesystemCommand
@@ -9,7 +10,7 @@ class FilesystemCommand
 
     public function __construct($path)
     {
-        $this->path = base_path("resources/assets/$path");
+        $this->path = Config::get('assets::app.folder') . "/$path";
     }
 
     public function getFinder($path = null)

@@ -1,11 +1,11 @@
 <?php namespace Rdehnhardt\Assets\Commander\File;
 
-use Rdehnhardt\Assets\Commander\Minify\MinifyCommand;
 use Cache;
 use Event;
 use Illuminate\Support\Facades\Config;
 use Laracasts\Commander\CommanderTrait;
 use Laracasts\Commander\CommandHandler;
+use Rdehnhardt\Assets\Commander\Minify\MinifyCommand;
 
 class FileCommandHandler implements CommandHandler
 {
