@@ -1,10 +1,12 @@
 <?php namespace Rdehnhardt\Assets\Commander\GetAssetsTags;
 
-use Laracasts\Commander\CommandHandler;
-use Laracasts\Commander\CommanderTrait;
-use Rdehnhardt\Assets\Commander\Filesystem\FilesystemCommand;
-use Illuminate\Html\HtmlBuilder;
+use App;
+use Cache;
 use Config;
+use Illuminate\Html\HtmlBuilder;
+use Laracasts\Commander\CommanderTrait;
+use Laracasts\Commander\CommandHandler;
+use Rdehnhardt\Assets\Commander\Filesystem\FilesystemCommand;
 
 class GetAssetsTagsCommandHandler implements CommandHandler
 {
@@ -37,6 +39,50 @@ class GetAssetsTagsCommandHandler implements CommandHandler
 
     protected function getOutput($type)
     {
+        if (App::environment('local')) {
+            if (Config::get('assets::app.explode')) {
+                $output = $this->buildExplodedTag($type);
+            } else {
+                $output = $this->buildProductionTag($type);
+            }
+        } else {
+            $output = $this->buildProductionTag($type);
+        }
+
+
+        if (App::environment('local')) {
+
+        } else {
+            $output = $this->buildProductionTag($type);
+        }
+
+        return $output;
+    }
+
+    protected function buildProductionTag($type)
+    {
+        if (!Cache::has("assets.hash")) {
+            Cache::forever("assets.hash", md5(time()));
+        }
+
+        $route = Config::get('assets::app.route') . "/" . Config::get('assets::app.route') . "-" . Cache::get('assets.hash') . "." . $type;
+        $output = '';
+
+        switch ($type) {
+            case 'css':
+                $output .= $this->htmlBuilder->style($route);
+                break;
+
+            case 'js':
+                $output .= $this->htmlBuilder->script($route);
+                break;
+        }
+
+        return $output;
+    }
+
+    private function buildExplodedTag($type)
+    {
         $Mapping = $this->filesystem->get("{$type}/map.php");
         $output = null;
 
@@ -59,7 +105,7 @@ class GetAssetsTagsCommandHandler implements CommandHandler
         $output = null;
 
         foreach ($iterator as $file) {
-            $filename = str_replace($file->getExtension().'/', Config::get('assets::app.name').'/', $file->getRelativePathname());
+            $filename = str_replace($file->getExtension() . '/', Config::get('assets::app.route') . '/', $file->getRelativePathname());
 
             switch ($file->getExtension()) {
                 case 'css':
@@ -73,6 +119,5 @@ class GetAssetsTagsCommandHandler implements CommandHandler
         }
         return strtolower($output);
     }
-
 
 }

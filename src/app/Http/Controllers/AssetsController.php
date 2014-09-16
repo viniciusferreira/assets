@@ -16,7 +16,7 @@ class AssetsController extends Controller
     public function file($filename)
     {
         $File = $this->execute(FileCommand::class, ['filename' => $filename]);
-        if (Config::get('app.debug')) {
+        if (Config::get('assets::app.debug')) {
             $content = $File->getContent();
         } else {
             $content = $File->getCached();
