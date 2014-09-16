@@ -1,5 +1,6 @@
 <?php namespace Rdehnhardt\Assets\Http\Controllers;
 
+use Cache;
 use Config;
 use Guzzle\Http\Mimetypes;
 use Illuminate\Routing\Controller;
@@ -7,7 +8,6 @@ use Laracasts\Commander\CommanderTrait;
 use Rdehnhardt\Assets\Commander\CompileCache\CompileCacheCommand;
 use Rdehnhardt\Assets\Commander\File\FileCommand;
 use Response;
-use Cache;
 
 class AssetsController extends Controller
 {
@@ -16,7 +16,7 @@ class AssetsController extends Controller
     public function file($filename)
     {
         $File = $this->execute(FileCommand::class, ['filename' => $filename]);
-        if (Config::get('app.debug')) {
+        if (Config::get('assets::app.debug')) {
             $content = $File->getContent();
         } else {
             $content = $File->getCached();
@@ -30,14 +30,19 @@ class AssetsController extends Controller
 
     public function application($hash, $type)
     {
-        if (empty(Cache::has("assets.$type.$hash"))) {
-            $this->execute(CompileCacheCommand::class, ['hash' => $hash,  'type' => $type]);
+        if (Config::get('assets::app.debug')) {
+            $content = $this->execute(CompileCacheCommand::class, ['hash' => $hash, 'type' => $type]);
+        } else {
+            if (empty(Cache::has("assets.$type.$hash"))) {
+                $content = $this->execute(CompileCacheCommand::class, ['hash' => $hash, 'type' => $type]);
+                Cache::forever("assets.$type.$hash", $content);
+            } else {
+                $content = Cache::get("assets.$type.$hash");
+            }
         }
 
-        $Response = Response::make(Cache::get("assets.$type.$hash"), 200);
+        $Response = Response::make($content, 200);
         $Response->header('Content-Type', Mimetypes::getInstance()->fromFilename("$hash.$type"));
-
         return $Response;
-
     }
 }

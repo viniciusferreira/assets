@@ -11,7 +11,7 @@ Route::group(['prefix' => Config::get('assets::app.route'), 'namespace' => 'Rdeh
 });
 
 Event::listen('check.file.cache', function ($File) {
-    if (!Cache::has($File->filename)) {
+    if (!Config::get('assets::app.debug') && !Cache::has($File->filename)) {
         Cache::forever($File->filename, $File->getContent());
     }
 });

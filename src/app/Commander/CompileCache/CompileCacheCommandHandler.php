@@ -18,9 +18,7 @@ class CompileCacheCommandHandler implements CommandHandler
     {
         $this->filesystem = $this->execute(FilesystemCommand::class, ['path' => $compile->type]);
 
-        $content = $this->getOutput($compile->type);
-
-        Cache::forever("assets.{$compile->type}.{$compile->hash}", $content);
+        return $this->getOutput($compile->type);
     }
 
     protected function getOutput($type)

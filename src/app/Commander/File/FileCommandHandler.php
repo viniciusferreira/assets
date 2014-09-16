@@ -31,7 +31,7 @@ class FileCommandHandler implements CommandHandler
 
     public function getContent()
     {
-        if (Config::get('app.debug')) {
+        if (Config::get('assets::app.debug')) {
             return $this->getFileContent();
         } else {
             return $this->getFileContentMinified();
