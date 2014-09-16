@@ -32,7 +32,7 @@ class FileCommandHandler implements CommandHandler
     public function getContent()
     {
         if (Config::get('assets::app.debug')) {
-            return $this->getFileContent() . PHP_   EOL;
+            return $this->getFileContent() . PHP_EOL;
         } else {
             return $this->getFileContentMinified();
         }
