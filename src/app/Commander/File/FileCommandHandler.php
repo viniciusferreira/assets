@@ -1,6 +1,6 @@
-<?php namespace Assets\Commander\File;
+<?php namespace Rdehnhardt\Assets\Commander\File;
 
-use Assets\Commander\Minify\MinifyCommand;
+use Rdehnhardt\Assets\Commander\Minify\MinifyCommand;
 use Cache;
 use Event;
 use Illuminate\Support\Facades\Config;
@@ -11,13 +11,13 @@ class FileCommandHandler implements CommandHandler
 {
     use CommanderTrait;
 
-    protected $filesystem;
+    public $filesystem;
     public $filename;
 
-    public function handle($command)
+    public function handle($File)
     {
-        $this->filesystem = $command->filesystem;
-        $this->filename = $command->filename;
+        $this->filesystem = $File->getFilesystem();
+        $this->filename = $File->filename;
 
         Event::fire('check.file.cache', array($this));
 

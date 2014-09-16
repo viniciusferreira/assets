@@ -11,6 +11,8 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "dev-master",
+        "illuminate/html": "dev-master",
+        "illuminate/routing": "dev-master",
         "laracasts/commander": "~1.0",
         "linkorb/jsmin-php": "1.0.0",
         "guzzle/http": "dev-master",

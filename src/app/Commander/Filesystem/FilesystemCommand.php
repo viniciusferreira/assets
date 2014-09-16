@@ -1,23 +1,26 @@
-<?php namespace Assets\Commander\Filesystem;
+<?php namespace Rdehnhardt\Assets\Commander\Filesystem;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\Adapter\GnuFindAdapter;
 
 class FilesystemCommand
 {
     public $path;
-    protected $adapter = 'gnu';
+    public $finder;
 
     public function __construct($path)
     {
-        $path = base_path("resources/assets/$path");
-
-        $this->finder = new Finder();
-        $this->finder->in($path);
+        $this->path = base_path("resources/assets/$path");
     }
 
-    public function getFilesystem()
+    public function getFinder($path = null)
     {
+        $this->finder = new Finder();
+        $this->finder->useBestAdapter()->in($this->path);
+
+        if ($path) {
+            $this->finder->in($path);
+        }
+
         return $this->finder;
     }
 }

@@ -1,8 +1,8 @@
-<?php namespace Assets\Http\Controllers;
+<?php namespace Rdehnhardt\Assets\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Laracasts\Commander\CommanderTrait;
-use Assets\Commander\File\FileCommand;
+use Rdehnhardt\Assets\Commander\File\FileCommand;
 use Symfony\Component\Finder\SplFileInfo;
 use Config;
 use Guzzle\Http\Mimetypes;

@@ -1,21 +1,24 @@
-<?php namespace Assets\Commander\File;
+<?php namespace Rdehnhardt\Assets\Commander\File;
 
-use Assets\Commander\Filesystem\FilesystemCommand;
 use Laracasts\Commander\CommanderTrait;
-use Illuminate\Filesystem\Filesystem;
+use Rdehnhardt\Assets\Commander\Filesystem\FilesystemCommand;
 
 class FileCommand
 {
     use CommanderTrait;
 
     public $filename;
+    public $path;
 
     public function __construct($filename)
     {
-        $Filesystem = new Filesystem();
-        $this->extension = $Filesystem->extension($filename);
         $this->filename = $filename;
+        $this->path = explode('.', $this->filename);
+        $this->path = end($this->path);
+        $this->filesystem = $this->execute(FilesystemCommand::class, ['path' => $this->path]);
+    }
 
-        $this->filesystem = $this->execute(FilesystemCommand::class, ['path' => $this->extension]);
+    public function getFilesystem() {
+        return $this->filesystem;
     }
 }
