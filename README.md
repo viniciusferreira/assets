@@ -20,27 +20,6 @@ Then run a composer update
 php composer.phar update
 ```
 
-## Configuration
-
-To use the Assets Service Provider, you must register the provider when bootstrapping your Laravel application.
-
-Publish the package configuration using Artisan.
-
-```sh
-php artisan publish:config rdehnhardt/assets
-```
-
-Update your settings in the generated `app/config/packages/rdehnhardt/assets` configuration file.
-
-```php
-return [
-    'route' => 'assets',
-    'explode' => false,
-    'debug' => Config::get('app.debug'),
-    'folder' => base_path("resources/assets"),
-];
-```
-
 Find the `providers` key in your `app/config/app.php` and register the Assets Service Provider.
 
 ```php
@@ -50,13 +29,13 @@ Find the `providers` key in your `app/config/app.php` and register the Assets Se
     ],
 ```
 
+Find the `aliases` key in your `app/config/app.php` and register the Assets Service Provider.
+
 ```php
     'aliases' => [
         'Assets' => 'Rdehnhardt\Assets\Facades\Assets',
     ] 
 ```
-
-The rest client needs not be entered in the alias.
 
 ## Usage
 Enter the code "{!! Assets::styles () !!}" and "{!! Assets::scripts () !!}" in your layout file.
@@ -93,4 +72,16 @@ return [
     'libs/*',
     'app/*',
 ];
+```
+
+These settings should generate something like:
+
+```html
+<link rel='stylesheet' href='http://www.yoursite.com/assets-9e107d9d372bb6826bd81d3542a419d6.css' type='text/css' media='all' />
+```
+
+and
+
+```html
+<script scr='http://www.yoursite.com/assets-9e107d9d372bb6826bd81d3542a419d6.js'></script>
 ```
