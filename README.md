@@ -1,6 +1,6 @@
-# Assets Manager for Laravel 4
+# Assets Manager for Laravel 5
 
-A simple [Laravel 4](http://laravel.com/) assets manager
+A simple [Laravel 5](http://laravel.com/) assets manager
 
 ## Installation
 
