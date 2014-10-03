@@ -44,11 +44,13 @@ class CompileCacheCommandHandler implements CommandHandler
         $iterator = $this->filesystem->getFiles($expression);
         $output = null;
 
-        foreach ($iterator as $file) {
-            $filename = str_replace($file->getExtension() . '/', Config::get('assets::app.name') . '/', $file->getRelativePathname());
-            $File = $this->execute(FileCommand::class, ['filename' => $filename]);
+        if (is_array($iterator) && count($iterator)) {
+            foreach ($iterator as $file) {
+                $filename = str_replace($file->getExtension() . '/', Config::get('assets::app.name') . '/', $file->getRelativePathname());
+                $File = $this->execute(FileCommand::class, ['filename' => $filename]);
 
-            $output .= $File->getContent();
+                $output .= $File->getContent();
+            }
         }
 
         return $output;
