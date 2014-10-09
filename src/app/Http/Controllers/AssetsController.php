@@ -42,6 +42,7 @@ class AssetsController
 
         $Response = Response::make($content, 200);
         $Response->header('Content-Type', Mimetypes::getInstance()->fromFilename("$hash.$type"));
+
         return $Response;
     }
 }
