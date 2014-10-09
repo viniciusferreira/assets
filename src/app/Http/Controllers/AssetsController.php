@@ -3,13 +3,12 @@
 use Cache;
 use Config;
 use Guzzle\Http\Mimetypes;
-use Illuminate\Routing\Controller;
 use Laracasts\Commander\CommanderTrait;
 use Rdehnhardt\Assets\Commander\CompileCache\CompileCacheCommand;
 use Rdehnhardt\Assets\Commander\File\FileCommand;
 use Response;
 
-class AssetsController extends Controller
+class AssetsController
 {
     use CommanderTrait;
 
